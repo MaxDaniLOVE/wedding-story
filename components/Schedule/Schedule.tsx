@@ -1,10 +1,11 @@
 import Image from 'next/image';
 import styles from './Schedule.module.scss'
 import ImgSchedule from "../../public/schedule-bg.png";
+import { LINK_IDS } from '@/shared/constants';
 
 export const Schedule = () => {
   return (
-    <section className={`${styles.section} ${styles.schedule}`}>
+    <section className={`${styles.section} ${styles.schedule}`} id={LINK_IDS.SCHEDULE}>
     <Image src={ImgSchedule} alt="schedule" className={styles.scheduleBg} fill />
     <div className={`${styles.container} ${styles.scheduleContent}`}>
       <h2>Расписание</h2>

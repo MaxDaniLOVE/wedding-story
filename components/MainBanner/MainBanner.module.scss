@@ -99,11 +99,18 @@
   display: flex;
   gap: 18px;
   flex: 1;
-  span {
+  span, a {
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    text-decoration: none;
+    color: #2B312F;
+    opacity: 0.5;
+    transition: all .3s ease;
+    &:hover {
+      opacity: 1;
+    }
   }
 }
 .year {

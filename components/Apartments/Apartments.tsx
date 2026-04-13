@@ -2,6 +2,7 @@
 import styles from './Apartments.module.scss'
 import ApartmentsBg from '../../public/apartment-bg.png'
 import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { LINK_IDS } from '@/shared/constants';
 
 export const Apartments = () => {
   const [parallaxOffset, setParallaxOffset] = useState(0);
@@ -41,6 +42,7 @@ export const Apartments = () => {
         "--parallax-offset": `${parallaxOffset}px`,
       } as CSSProperties}
       ref={containerRef}
+      id={LINK_IDS.APARTMENTS}
     >
         <div>
           <h2>Где жить</h2>
