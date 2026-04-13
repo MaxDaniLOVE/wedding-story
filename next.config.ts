@@ -22,8 +22,8 @@ const toBasePath = (value: string): string => {
 const basePath = toBasePath(rawBasePath);
 
 const nextConfig: NextConfig = {
-  output: "export",
-  trailingSlash: true,
+  // output: "export",
+  trailingSlash: false,
   basePath,
   images: {
     unoptimized: true,

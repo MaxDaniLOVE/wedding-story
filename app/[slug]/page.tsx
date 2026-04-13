@@ -1,8 +1,4 @@
 import Image from "next/image";
-import imgDressCode from "../../public/dress-code.png";
-import imgHeroBottom from "../../public/hero-bottom.png";
-import imgHeroTop from "../../public/hero-top.png";
-import imgSchedule from "../../public/schedule-bg.png";
 import imgTravel from "../../public/travel.png";
 import imgVenue from "../../public/venue.png";
 import styles from "./page.module.scss";
@@ -11,6 +7,7 @@ import { MainBanner } from "@/components/MainBanner";
 import { DressCode } from "@/components/DressCode";
 import { Schedule } from "@/components/Schedule/Schedule";
 import FooterLogo from '../../public/footer-logo.svg'
+import { Apartments } from "@/components/Apartments";
 
 const staticSlugs = Object.keys(INVITED_FRIENDS_INFO)
 
@@ -54,16 +51,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.sectionStay}`}>
-        <div className={`${styles.container} ${styles.centeredCopy}`}>
-          <h2>Где жить</h2>
-          <p>
-            С 22 по 23 мая для вас будет забронирован номер в отеле Nekresi Estate, чтобы вы
-            могли провести этот вечер с нами и отдохнуть после праздника. Заселение с 15:00.
-            Утром вас будет ждать завтрак в отеле.
-          </p>
-        </div>
-      </section>
+      <Apartments />
       <DressCode />
       <Schedule />
 
