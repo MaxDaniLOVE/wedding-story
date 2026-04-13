@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState, type CSSProperties } from "react";
 import Headerlogo from '../../public/header-logo.svg'
 import Image from "next/image";
+import MainBannerBg from '../../public/main-banner.png'
 
 const WeddingSvg = () => {
   return (
@@ -106,7 +107,7 @@ export const MainBanner = () => {
     <>
       <section
         className={`${styles.section}`}
-        style={{ "--parallax-offset": `${parallaxOffset}px` } as CSSProperties}
+        style={{ "--parallax-offset": `${parallaxOffset}px`, backgroundImage: `url(${MainBannerBg.src})` } as CSSProperties}
       >
         <div className={`${styles.heroContent} ${styles.container}`}>
           <div className={styles.logoWrapper}>
