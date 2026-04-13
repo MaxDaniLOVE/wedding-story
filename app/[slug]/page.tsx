@@ -2,18 +2,11 @@ import Image from "next/image";
 import imgTravel from "../../public/travel.png";
 import imgVenue from "../../public/venue.png";
 import styles from "./page.module.scss";
-import { INVITED_FRIENDS_INFO } from "@/shared/constants";
 import { MainBanner } from "@/components/MainBanner";
 import { DressCode } from "@/components/DressCode";
 import { Schedule } from "@/components/Schedule/Schedule";
 import FooterLogo from '../../public/footer-logo.svg'
 import { Apartments } from "@/components/Apartments";
-
-const staticSlugs = Object.keys(INVITED_FRIENDS_INFO)
-
-export function generateStaticParams() {
-  return staticSlugs.map((slug) => ({ slug }));
-}
 
 export default function Home() {
   return (
