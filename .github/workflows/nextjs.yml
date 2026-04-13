@@ -8,6 +8,13 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["release"]
+    paths:
+      - "app/**"
+      - "public/**"
+      - ".github/workflows/nextjs.yml"
+      - "next.config.*"
+      - "package.json"
+      - "pnpm-lock.yaml"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,12 +29,13 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   # Build job
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     env:
       NEXT_PUBLIC_BASE_PATH: ${{ vars.NEXT_PUBLIC_BASE_PATH || secrets.NEXT_PUBLIC_BASE_PATH }}
     steps:
@@ -85,6 +93,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     needs: build
     steps:
       - name: Deploy to GitHub Pages
