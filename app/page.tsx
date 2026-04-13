@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import styles from "./page.module.scss";
 
-const imgHeroTop = "/hero-top.png";
-const imgHeroBottom = "/hero-bottom.png";
-const imgVenue = "/venue.png";
-const imgTravel = "/travel.png";
-const imgDressCode = "/dress-code.png";
-const imgSchedule = "/schedule-bg.png";
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+const withBasePath = (path: string) => `${basePath}${path}`;
+
+const imgHeroTop = withBasePath("/hero-top.png");
+const imgHeroBottom = withBasePath("/hero-bottom.png");
+const imgVenue = withBasePath("/venue.png");
+const imgTravel = withBasePath("/travel.png");
+const imgDressCode = withBasePath("/dress-code.png");
+const imgSchedule = withBasePath("/schedule-bg.png");
 
 const palette = ["#626875", "#d0b2b2", "#d0a290", "#a3c2b4", "#f6e5ca"];
 
