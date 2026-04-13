@@ -1,15 +1,26 @@
 import type { Metadata } from "next";
-import { Source_Serif_4 } from "next/font/google";
-import "./globals.css";
+import { Meddon, Source_Serif_4 } from "next/font/google";
+import "./globals.scss";
 
 const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif-4",
-  subsets: ["latin", 'cyrillic'],
+  subsets: ["latin", "cyrillic"],
+});
+
+const meddon = Meddon({
+  variable: "--font-meddon",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
-  title: "Wedding story",
-  description: "Wedding story",
+  title: "Vladimir & Alina Wedding, 22 мая 2026",
+  description: "Приглашаем вас на нашу уютную свадьбу в Грузии!",
+  openGraph: {
+    title: "Vladimir & Alina Wedding, 22 мая 2026",
+    description: "Приглашаем вас на нашу уютную свадьбу в Грузии!",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -18,11 +29,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="ru"
-      className={`${sourceSerif4.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="ru" className={`${sourceSerif4.variable} ${meddon.variable}`}>
+      <body>{children}</body>
     </html>
   );
 }

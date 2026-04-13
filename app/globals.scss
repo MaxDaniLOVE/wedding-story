@@ -1,0 +1,24 @@
+:root {
+  --paper: #fbfdfc;
+  --ink: #2b312f;
+  --muted: rgba(43, 49, 47, 0.6);
+  --forest: #5b6e59;
+  --cream: #f6f6eb;
+  --night: #100d1b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-source-serif-4), serif;
+}
