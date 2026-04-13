@@ -1,15 +1,30 @@
 import type { NextConfig } from "next";
 
-const isProduction = process.env.NODE_ENV === "production";
-const basePath = isProduction ? process.env.NEXT_PUBLIC_BASE_PATH : "";
+const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+const toBasePath = (value: string): string => {
+  if (!value || value === "/") {
+    return "";
+  }
+
+  if (value.startsWith("http://") || value.startsWith("https://")) {
+    try {
+      const pathname = new URL(value).pathname;
+      return pathname === "/" ? "" : pathname.replace(/\/$/, "");
+    } catch {
+      return "";
+    }
+  }
+
+  return value.replace(/\/$/, "");
+};
+
+const basePath = toBasePath(rawBasePath);
 
 const nextConfig: NextConfig = {
   output: "export",
   trailingSlash: true,
   basePath,
-  env: {
-    NEXT_PUBLIC_BASE_PATH: basePath,
-  },
 };
 
 export default nextConfig;
