@@ -1,0 +1,73 @@
+.container {
+  padding: 0 78px 0 100px;
+  width: 100%;
+}
+.section {
+  width: 100%;
+}
+.sectionDress {
+  padding: 100px 0 0 0;
+  background-color: #E2DBD2;
+  h2 {
+    color: #2B312F;
+    opacity: 0.5;
+  }
+  img {
+    width: 610px;
+    height: 915px;
+    margin-bottom: -155px;
+    position: relative;
+    z-index: 2;
+  }
+}
+.info {
+  flex: 1;
+  padding: 80px 0;
+  align-self: flex-start;
+}
+
+.dressGrid {
+  display: flex;
+  gap: 84px;
+  align-items: center;
+}
+
+.palette {
+  display: flex;
+  gap: 22px;
+  margin-top: 118px;
+  justify-content: center;
+
+  span {
+    width: 70px;
+    height: 94px;
+    &:nth-child(odd) {
+      animation: odd 9s infinite linear ;
+    }
+    &:nth-child(even) {
+      animation: even 9s infinite linear;
+    }
+  }
+}
+@keyframes odd {
+  0% {
+    transform: translateY(0px);
+  } 25% {
+    transform: translateY(16px);
+  } 75% {
+    transform: translateY(-16px);
+  } 100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes even {
+  0% {
+    transform: translateY(0px);
+  } 25% {
+    transform: translateY(-16px);
+  } 75% {
+    transform: translateY(16px);
+  } 100% {
+    transform: translateY(0px);
+  }
+}

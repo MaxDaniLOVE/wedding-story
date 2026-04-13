@@ -1,0 +1,43 @@
+.schedule {
+  background: var(--night);
+  color: #fbfdfb;
+  padding: 0 62px;
+  height: 100vh;
+  z-index: 1;
+  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.scheduleBg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+
+.scheduleContent {
+  max-width: 640px;
+  h2 {
+    color: #FBFDFC;
+    opacity: 0.5;
+    text-align: left;
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+  }
+}
+.travelInfo {
+  padding: 185px 0 350px 0;
+}
+.section {
+  position: relative;
+}
