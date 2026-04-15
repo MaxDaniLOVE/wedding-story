@@ -41,3 +41,18 @@
 .section {
   position: relative;
 }
+@media (max-width: 1023px) {
+  .schedule {
+    padding: 0 58px;
+    justify-content: flex-start;
+  }
+  .scheduleContent {
+    padding: 98px 0 0 0;
+    li {
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+}

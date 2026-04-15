@@ -8,6 +8,7 @@ import MainBannerBg from '../../public/main-banner.png'
 import { User } from "@/types";
 import Link from "next/link";
 import { LINK_IDS, LINKS } from "@/shared/constants";
+import { Logo } from "../pages/FormPage/FormPage";
 
 export const WeddingSvg = () => {
   return (
@@ -117,10 +118,7 @@ export const MainBanner = ({ invitedFriendInfo }: { invitedFriendInfo: User }) =
         id={LINK_IDS.INVITE}
       >
         <div className={`${styles.heroContent} ${styles.container}`}>
-          <div className={styles.logoWrapper}>
-            <WeddingSvg />
-            <NamesSvg />
-          </div>
+          <Logo />
           <p className={styles.subtitle}>{invitedFriendInfo?.welcome}, приглашаем <br/> тебя на нашу свадьбу!</p>
           <div className={styles.dateWrapper}>
             <p className={styles.date}>22 Мая 2026</p>

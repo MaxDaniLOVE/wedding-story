@@ -12,6 +12,22 @@
       color: inherit;
     }
   }
+  @media (max-width: 1023px) {
+    .story {
+      h2 {
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      p {
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+    }
+  }
 }
 .travelInfo {
   padding: 185px 0 350px 0;
@@ -33,6 +49,7 @@
     font-weight: 400;
     line-height: normal;
     margin-bottom: 24px;
+    opacity: 0.5;
   }
 
   li {
@@ -252,5 +269,67 @@
     text-align: center;
     font-size: 18px;
     font-weight: 400;
+  }
+}
+@media (max-width: 1023px) {
+  .sectionVenue {
+    .panelGreen {
+      padding: 135px 31px;
+      h2 {
+        opacity: 0.5;
+      }
+    }
+    .split {
+      grid-template-columns: 1fr;
+      .blockImageWrapper {
+        padding-top: 108%;
+      }
+    }
+  }
+  .story {
+    h2 {
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+    p {
+      font-size: 22px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+    }
+  }
+  .sectionTravel {
+    padding: 80px 32px 368px 32px;
+    .travelInfo {
+      padding: 0;
+    }
+  }
+  .travelImageWrap {
+    height: 297px;
+    padding-bottom: 27px;
+    div {
+      width: 339px;
+      height: 508px;
+    }
+  }
+  .gifts {
+    padding: 80px 32px 60px 32px;
+  }
+  .footer {
+    padding: 32px;
+    div {
+      flex-direction: column;
+      gap: 32px;
+      padding: 41px 18px 0 18px;
+      p {
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        opacity: 0.5;
+      }
+    }
   }
 }

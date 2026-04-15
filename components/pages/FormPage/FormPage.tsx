@@ -8,6 +8,15 @@ import { useInvitedUser } from "@/shared/hooks";
 import { NamesSvg, WeddingSvg } from "@/components/MainBanner/MainBanner";
 import { usePathname, useRouter } from "next/navigation";
 
+export const Logo = () => {
+  return (
+    <div className={styles.logoWrapper}>
+      <WeddingSvg />
+      <NamesSvg />
+    </div>
+  )
+}
+
 export function FormPage() {
   const invitedFriendInfo = useInvitedUser()
   const [value, setValue] = useState('')
@@ -44,10 +53,7 @@ export function FormPage() {
         id={LINK_IDS.INVITE}
       >
         <div className={`${styles.heroContent} ${styles.container}`}>
-          <div className={styles.logoWrapper}>
-            <WeddingSvg />
-            <NamesSvg />
-          </div>
+          <Logo />
           <form className={styles.formWrapper} onSubmit={onSubmit}>
             <label htmlFor="input" className={styles.subtitle}>{invitedFriendInfo?.question}</label>
             <div className={`${styles.inputWrapper} ${hasError ? styles.error : ''}`}>

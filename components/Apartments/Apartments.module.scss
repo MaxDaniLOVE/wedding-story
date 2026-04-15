@@ -15,3 +15,10 @@
     max-width: 1040px;
   }
 }
+@media (max-width: 1023px) {
+  .container {
+    padding: 53px 32px 0 32px;
+    background-size: cover;
+    background-position: calc(0% - var(--parallax-offset, 0px)) bottom;
+  }
+}
