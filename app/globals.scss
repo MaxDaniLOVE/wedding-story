@@ -5,6 +5,15 @@
   --forest: #5b6e59;
   --cream: #f6f6eb;
   --night: #100d1b;
+  --screen-min: 320px;
+  --screen-small: 600px;
+  --screen-medium: 1024px;
+  --screen-max: 1300px;
+
+  --media-min: calc(screen-min - 1px);
+  --media-small: calc(screen-small - 1px);
+  --media-medium: calc(screen-medium - 1px);
+  --media-max: calc(screen-max - 1px);
 }
 
 * {
