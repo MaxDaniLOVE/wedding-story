@@ -87,6 +87,7 @@
   color: #40615A;
   width: 100%;
   transition: .3s ease all;
+  max-height: 49px;
   &:active, &:focus {
     opacity: 1;
     color: #40615A;
@@ -104,15 +105,17 @@
   }
 }
 .inputWrapper {
-  padding:  0 20px;
+  padding: 0 20px;
   margin-top: 24px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  max-height: 49px;
   &.error {
     .input {
       border: 2px solid rgb(240, 117, 100, 1);
+      max-height: 49px;
       &:active, &:focus {
         opacity: 1;
         border: 2px solid rgb(240, 117, 100, 1);
@@ -127,7 +130,7 @@
     position: absolute;
     width: 49px;
     height: 49px;
-    top: 2px;
+    top: 0px;
     right: 20px;
     border-radius: 12px;
     background: #40615A;
