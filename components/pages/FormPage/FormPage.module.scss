@@ -190,6 +190,10 @@
   .formWrapper {
     position: relative;
     z-index: 1;
+    p {
+      padding: 0;
+      margin-top: 16px;
+    }
   }
   .inputWrapper {
     padding: 0;
