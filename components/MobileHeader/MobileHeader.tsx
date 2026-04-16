@@ -6,14 +6,23 @@ import { LINKS } from '@/shared/constants';
 import Link from 'next/link';
 import { SectionIds } from '@/types';
 
+let scrollY = 0;
+
 export const blockBodyScroll = (isBlock: boolean) => {
   if (isBlock) {
-    document.body.style.overflow = 'hidden'
-    document.body.style.height = '100%'
+    scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
     return
   }
-  document.body.style.overflow = 'auto'
-  document.body.style.height = 'auto'
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+
+  window.scrollTo(0, scrollY);
 }
 
 const AnimatedIcon = ({ isOpen }: { isOpen: boolean }) => {
@@ -50,6 +59,10 @@ export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (!isOpenSidebar) {
+        return
+      }
+
       const target = event.target as HTMLDivElement
       if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node) && target?.id !== 'close-icon') {
         setIsOpenSidebar(false)
@@ -62,7 +75,7 @@ export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
     }, 64)
 
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [sidebarRef])
+  }, [sidebarRef, isOpenSidebar])
 
   return (
     <>
