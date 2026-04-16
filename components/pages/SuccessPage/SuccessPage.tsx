@@ -54,6 +54,7 @@ export function SuccessPage() {
 
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
+    console.log('MOUNTED');
 
     return () => {
       if (frameId !== null) {
