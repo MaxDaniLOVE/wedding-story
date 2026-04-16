@@ -57,7 +57,7 @@
 .logoWrapper {
   position: relative;
   height: 214px;
-  margin-bottom: 46px;
+  margin-bottom: 0px;
   svg {
     position: absolute;
     top: 0;
@@ -176,7 +176,7 @@
     position: absolute;
     width: calc(100% + 18px);
     left: 50%;
-    top: 97px;
+    top: 44px;
     max-width: 439px;
     z-index: 0;
     transform: translateX(-50%);

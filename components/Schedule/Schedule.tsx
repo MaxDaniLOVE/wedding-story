@@ -1,12 +1,28 @@
-import Image from 'next/image';
 import styles from './Schedule.module.scss'
 import ImgSchedule from "../../public/schedule-bg.png";
-import { LINK_IDS } from '@/shared/constants';
+import { LINK_IDS, PARALLAX_SPEED } from '@/shared/constants';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 
-export const Schedule = () => {
+export const Schedule = ({ scrollPosition }: { scrollPosition: number }) => {
+  const [parallaxOffset, setParallaxOffset] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const containerYPosition = (window.scrollY + (containerRef.current?.getBoundingClientRect()?.y || 3000));
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setParallaxOffset(containerYPosition);
+  }, []);
+
   return (
-    <section className={`${styles.section} ${styles.schedule}`} id={LINK_IDS.SCHEDULE}>
-    <Image src={ImgSchedule} alt="schedule" className={styles.scheduleBg} fill />
+    <section
+      className={`${styles.section} ${styles.schedule}`}
+      id={LINK_IDS.SCHEDULE}
+      style={{
+        backgroundImage: `url(${ImgSchedule.src})`,
+        "--parallax-offset": `${(scrollPosition - parallaxOffset) * PARALLAX_SPEED}px`,
+      } as CSSProperties}
+      ref={containerRef}
+    >
     <div className={`${styles.container} ${styles.scheduleContent}`}>
       <h2>Расписание</h2>
       <ul>

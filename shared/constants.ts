@@ -84,7 +84,7 @@ export const LINK_IDS = {
   DRESS_CODE: 'dress-code',
   SCHEDULE: 'schedule',
   GIFTS: 'gifts',
-}
+} as const;
 
 export const LINKS = [
   { id: LINK_IDS.INVITE, label: 'Приглашение' },
@@ -95,3 +95,4 @@ export const LINKS = [
   { id: LINK_IDS.SCHEDULE, label: 'Расписание' },
   { id: LINK_IDS.GIFTS, label: 'Что дарить' },
 ]
+export const PARALLAX_SPEED = 0.08;

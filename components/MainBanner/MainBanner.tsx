@@ -1,13 +1,13 @@
 'use client'
 
 import styles from "./MainBanner.module.scss";
-import { SyntheticEvent, useCallback, useEffect, useState, type CSSProperties } from "react";
+import { SyntheticEvent, useCallback, type CSSProperties } from "react";
 import Headerlogo from '../../public/header-logo.svg'
 import Image from "next/image";
 import MainBannerBg from '../../public/main-banner.png'
-import { User } from "@/types";
+import { SectionIds, User } from "@/types";
 import Link from "next/link";
-import { LINK_IDS, LINKS } from "@/shared/constants";
+import { LINK_IDS, LINKS, PARALLAX_SPEED } from "@/shared/constants";
 import { Logo } from "../pages/FormPage/FormPage";
 
 export const WeddingSvg = () => {
@@ -74,35 +74,10 @@ export const NamesSvg = () => {
   )
 }
 
-export const MainBanner = ({ invitedFriendInfo }: { invitedFriendInfo: User }) => {
-  const [parallaxOffset, setParallaxOffset] = useState(0);
 
-  useEffect(() => {
-    let frameId: number | null = null;
-    const PARALLAX_SPEED = 0.12;
-
-    const handleScroll = () => {
-      if (frameId !== null) {
-        return;
-      }
-
-      frameId = window.requestAnimationFrame(() => {
-        setParallaxOffset(window.scrollY * PARALLAX_SPEED);
-        frameId = null;
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
-      }
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
+export const MainBanner = ({
+  invitedFriendInfo, scrollPosition, activeBlock
+}: { invitedFriendInfo: User; scrollPosition: number; activeBlock: SectionIds }) => {
   const onClickLink = useCallback((e:  SyntheticEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault()
     const container = document.querySelector(`#${id}`) as HTMLDivElement
@@ -112,9 +87,23 @@ export const MainBanner = ({ invitedFriendInfo }: { invitedFriendInfo: User }) =
 
   return (
     <>
+      <div className={styles.topNav} style={scrollPosition >= 92 ? { opacity: 1 }: { opacity: 0 }}>
+        <div className={`${styles.container} ${styles.navRow}`}>
+          <Image src={Headerlogo} alt='header-logo' />
+          <span className={styles.dateHeader}>
+            <span>22 мая</span>
+            <span className={styles.year}>2026</span>
+          </span>
+          <div className={styles.linksWrapper}>
+            {
+              LINKS.map(({ id, label }) => (<Link onClick={e => onClickLink(e, id)} href={`#${id}`} key={id} className={activeBlock === id ? styles.active : ''}>{label}</Link>))
+            }
+          </div>
+        </div>
+      </div>
       <section
         className={`${styles.section}`}
-        style={{ "--parallax-offset": `${parallaxOffset}px`, backgroundImage: `url(${MainBannerBg.src})` } as CSSProperties}
+        style={{ "--parallax-offset": `${scrollPosition * PARALLAX_SPEED}px`, backgroundImage: `url(${MainBannerBg.src})` } as CSSProperties}
         id={LINK_IDS.INVITE}
       >
         <div className={`${styles.heroContent} ${styles.container}`}>
@@ -125,25 +114,8 @@ export const MainBanner = ({ invitedFriendInfo }: { invitedFriendInfo: User }) =
             <p className={styles.country}>Грузия</p>
           </div>
         </div>
-
-
-    </section>
-    <div className={styles.topNav}>
-      <div className={`${styles.container} ${styles.navRow}`}>
-        <Image src={Headerlogo} alt='header-logo' />
-        <span className={styles.dateHeader}>
-          <span>22 мая</span>
-          <span className={styles.year}>2026</span>
-        </span>
-        <div className={styles.linksWrapper}>
-          {
-            LINKS.map(({ id, label }) => (<Link onClick={e => onClickLink(e, id)} href={`#${id}`} key={id}>{label}</Link>))
-          }
-        </div>
-      </div>
-  </div>
-  </>
-
+      </section>
+    </>
   );
 }
 

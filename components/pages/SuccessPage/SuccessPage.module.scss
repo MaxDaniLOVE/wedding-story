@@ -59,6 +59,15 @@
 }
 .blockImageWrapper {
   position: relative;
+  overflow: hidden;
+  img {
+    transition: all .3s ease;
+  }
+}
+.activeImageWrapper {
+  img {
+    transform: scale(1.05);
+  }
 }
 .hero {
   min-height: 540px;
@@ -169,10 +178,14 @@
   justify-content: center;
   padding-bottom: 100px;
   background-color: var(--paper);
-  div {
+  .carImageWrapper {
     position: relative;
     width: 710px;
     height: 1065px;
+    overflow: hidden;
+    img {
+      transition: all .3s ease;
+    }
   }
 }
 
@@ -270,6 +283,7 @@
     text-align: center;
     font-size: 18px;
     font-weight: 400;
+    opacity: 0.5;
   }
 }
 @media (max-width: 1023px) {
@@ -310,7 +324,7 @@
   .travelImageWrap {
     height: 297px;
     padding-bottom: 27px;
-    div {
+    .carImageWrapper {
       width: 339px;
       height: 508px;
     }

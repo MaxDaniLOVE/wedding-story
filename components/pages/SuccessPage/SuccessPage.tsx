@@ -12,17 +12,63 @@ import { Apartments } from "@/components/Apartments";
 import { useInvitedUser } from "@/shared/hooks";
 import { LINK_IDS } from "@/shared/constants";
 import { MobileHeader } from "@/components/MobileHeader";
+import { useEffect, useState } from "react";
+import { SectionIds } from "@/types";
 
 export function SuccessPage() {
   const invitedFriendInfo = useInvitedUser()
 
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [activeBlock, setActiveBlock] = useState<SectionIds>('invite')
+  const [isCarBlockActive, setIsCarBlockActive] = useState(false);
+
+  useEffect(() => {
+    let frameId: number | null = null;
+    const sections = document.querySelectorAll('section');
+    const carCard = document.querySelector('#car') as HTMLElement;
+    console.log(carCard);
+
+    const handleScroll = () => {
+      if (frameId !== null) {
+        return;
+      }
+
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 92) { // 92px for header
+          setActiveBlock(section.getAttribute('id') as SectionIds)
+        }
+      })
+
+      if (carCard && (window.scrollY >= (carCard.offsetTop - 92) && (window.scrollY <= (carCard.offsetTop - 92 + carCard.clientHeight)))) {  // 92px for header
+        setIsCarBlockActive(true);
+      } else {
+        setIsCarBlockActive(false)
+      }
+
+      frameId = window.requestAnimationFrame(() => {
+        setScrollPosition(window.scrollY);
+        frameId = null;
+      });
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
     <>
 
-      <MobileHeader />
+      <MobileHeader activeBlock={activeBlock} />
       <main className={styles.story}>
-        <MainBanner invitedFriendInfo={invitedFriendInfo} />
+        <MainBanner activeBlock={activeBlock} invitedFriendInfo={invitedFriendInfo} scrollPosition={scrollPosition} />
         <section className={`${styles.section} ${styles.sectionVenue}`} id={LINK_IDS.PLACE}>
           <div className={styles.split}>
             <article className={`${styles.container} ${styles.panelGreen}`}>
@@ -32,7 +78,7 @@ export function SuccessPage() {
                 юге Грузии, примерно в 2,5-3 часах езды от Тбилиси.
               </p>
             </article>
-            <div className={styles.blockImageWrapper}>
+            <div className={`${styles.blockImageWrapper} ${activeBlock === LINK_IDS.PLACE ? styles.activeImageWrapper : ''}`}>
               <Image className={styles.splitImage} src={imgVenue} alt="Nekresi Estate" fill objectFit="cover" />
             </div>
           </div>
@@ -48,15 +94,15 @@ export function SuccessPage() {
             </p>
           </div>
         </section>
-        <section className={styles.travelImageWrap}>
-          <div>
+        <div className={styles.travelImageWrap}>
+          <div id='car' className={`${styles.carImageWrapper} ${isCarBlockActive ? styles.activeImageWrapper : ''}`}>
             <Image src={imgTravel} alt="Дорога к месту проведения" fill />
           </div>
-        </section>
+        </div>
 
-        <Apartments />
-        <DressCode />
-        <Schedule />
+        <Apartments scrollPosition={scrollPosition} />
+        <DressCode activeBlock={activeBlock}  />
+        <Schedule scrollPosition={scrollPosition} />
 
         <section className={`${styles.section} ${styles.gifts}`} id={LINK_IDS.GIFTS}>
           <h2>Что дарить</h2>

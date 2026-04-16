@@ -2,36 +2,17 @@
 import styles from './Apartments.module.scss'
 import ApartmentsBg from '../../public/apartment-bg.png'
 import { CSSProperties, useEffect, useRef, useState } from 'react';
-import { LINK_IDS } from '@/shared/constants';
+import { LINK_IDS, PARALLAX_SPEED } from '@/shared/constants';
 
-export const Apartments = () => {
+
+export const Apartments = ({ scrollPosition }: { scrollPosition: number }) => {
   const [parallaxOffset, setParallaxOffset] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    let frameId: number | null = null;
-    const PARALLAX_SPEED = 0.12;
     const containerYPosition = (window.scrollY + (containerRef.current?.getBoundingClientRect()?.y || 3000));
-
-    const handleScroll = () => {
-      if (frameId !== null) {
-        return;
-      }
-      frameId = window.requestAnimationFrame(() => {
-        setParallaxOffset((window.scrollY - containerYPosition) * PARALLAX_SPEED);
-        frameId = null;
-      });
-    };
-
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
-      }
-      window.removeEventListener("scroll", handleScroll);
-    };
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setParallaxOffset(containerYPosition);
   }, []);
 
   return (
@@ -39,7 +20,7 @@ export const Apartments = () => {
       className={styles.container}
       style={{
         backgroundImage: `url(${ApartmentsBg.src})`,
-        "--parallax-offset": `${parallaxOffset}px`,
+        "--parallax-offset": `${(scrollPosition - parallaxOffset) * PARALLAX_SPEED}px`,
       } as CSSProperties}
       ref={containerRef}
       id={LINK_IDS.APARTMENTS}

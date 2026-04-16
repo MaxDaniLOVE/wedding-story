@@ -12,13 +12,6 @@
     color: #2B312F;
     opacity: 0.5;
   }
-  img {
-    width: 610px;
-    height: 915px;
-    margin-bottom: -155px;
-    position: relative;
-    z-index: 2;
-  }
 }
 .info {
   flex: 1;
@@ -71,6 +64,23 @@
     transform: translateY(0px);
   }
 }
+.blockImageWrapper {
+  position: relative;
+  height: 915px;
+  width: 610px;
+  overflow: hidden;
+  margin-bottom: -155px;
+  z-index: 2;
+  img {
+    transition: all .3s ease;
+  }
+}
+.activeImageWrapper {
+  position: relative;
+  img {
+    transform: scale(1.05);
+  }
+}
 @media (max-width: 1023px) {
   .dressGrid {
     flex-direction: column-reverse;
@@ -79,11 +89,12 @@
   }
   .sectionDress {
     padding-top: 0;
-    img {
+    .blockImageWrapper {
       max-width: 370px;
-      width: 100%;
+      width: calc(100% - 32px);
       height: auto;
       margin-bottom: -16px;
+      padding-top: 150%;
     }
     p {
       padding: 0 32px;

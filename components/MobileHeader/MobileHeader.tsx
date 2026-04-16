@@ -4,6 +4,7 @@ import SidebarLogo from '../../public/sidebar-logo.svg'
 import Image from 'next/image';
 import { LINKS } from '@/shared/constants';
 import Link from 'next/link';
+import { SectionIds } from '@/types';
 
 const BurgerSVG = () => {
   return (
@@ -33,7 +34,7 @@ export const blockBodyScroll = (isBlock: boolean) => {
 }
 
 
-export const MobileHeader = () => {
+export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false)
   const toggle = () => {
     setIsOpenSidebar((isOpen) => {
@@ -59,9 +60,16 @@ export const MobileHeader = () => {
       <aside className={`${styles.sidebarContainer} ${isOpenSidebar ? styles.open : ''}`}>
           <div className={styles.linksWrapper}>
             <Image src={SidebarLogo.src} alt='logo' width={SidebarLogo.width} height={SidebarLogo.height}/>
-            {
-              LINKS.map(({ id, label }) => (<Link onClick={e => onClickLink(e, id)} href={`#${id}`} key={id}>{label}</Link>))
-            }
+            {LINKS.map(({ id, label }) => (
+              <Link
+                onClick={e => onClickLink(e, id)}
+                href={`#${id}`}
+                key={id}
+                className={activeBlock === id ? styles.active : ''}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
       </aside>
     </>

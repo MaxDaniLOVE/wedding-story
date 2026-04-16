@@ -9,15 +9,10 @@
   align-items: flex-end;
   justify-content: center;
   flex-direction: column;
-}
-
-.scheduleBg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: 110%;
+  background-position: 0;
+  background-position: calc(50% - var(--parallax-offset, 0px)) bottom;
 }
 
 .scheduleContent {
@@ -45,6 +40,8 @@
   .schedule {
     padding: 0 58px;
     justify-content: flex-start;
+    background-size: cover;
+    background-position: calc(10% - var(--parallax-offset, 0px)) bottom;
   }
   .scheduleContent {
     padding: 98px 0 0 0;
