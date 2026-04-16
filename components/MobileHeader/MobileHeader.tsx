@@ -6,23 +6,6 @@ import { LINKS } from '@/shared/constants';
 import Link from 'next/link';
 import { SectionIds } from '@/types';
 
-const BurgerSVG = () => {
-  return (
-  <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 54 54" fill="none">
-    <circle cx="27" cy="27" r="27" fill="#FBFDFC"/>
-    <rect x="13" y="26" width="28" height="2" rx="1" fill="#40615A"/>
-    <rect x="13" y="18" width="28" height="2" rx="1" fill="#40615A"/>
-    <rect x="13" y="34" width="28" height="2" rx="1" fill="#40615A"/>
-  </svg>
-)}
-
-const CrossSVG = () => {
-  return <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22" fill="none">
-  <rect x="0.393433" y="20.1924" width="28" height="2" rx="1" transform="rotate(-45 0.393433 20.1924)" fill="#FBFDFB"/>
-  <rect x="1.41418" width="28" height="2" rx="1" transform="rotate(45 1.41418 0)" fill="#FBFDFB"/>
-</svg>
-}
-
 export const blockBodyScroll = (isBlock: boolean) => {
   if (isBlock) {
     document.body.style.overflow = 'hidden'
@@ -31,6 +14,17 @@ export const blockBodyScroll = (isBlock: boolean) => {
   }
   document.body.style.overflow = 'auto'
   document.body.style.height = 'auto'
+}
+
+const AnimatedIcon = ({ isOpen }: { isOpen: boolean }) => {
+  return (
+    <div className={`${styles.animatedBurger} ${isOpen ? styles.open : ''} `}>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  )
 }
 
 
@@ -55,7 +49,7 @@ export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
   return (
     <>
       <button className={`${styles.iconWrapper} ${isOpenSidebar ? styles.open : ''}`} onClick={toggle}>
-        {isOpenSidebar ? <CrossSVG /> : <BurgerSVG />}
+        <AnimatedIcon isOpen={isOpenSidebar} />
       </button>
       <aside className={`${styles.sidebarContainer} ${isOpenSidebar ? styles.open : ''}`}>
           <div className={styles.linksWrapper}>
