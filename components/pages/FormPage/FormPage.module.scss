@@ -10,12 +10,13 @@
   background-repeat: no-repeat;
   background-size: 110%;
   background-position: 0;
-  background-position: calc(50% - var(--parallax-offset, 0px)) bottom;
-  padding-top: 91px;
+  background-position: left calc(50% - var(--parallax-offset, 0px)) bottom 10%;
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   background-color: var(--paper);
+  transition: all 0s ease;
 }
 
 .story {
@@ -162,6 +163,7 @@
     padding-top: 0;
     align-items: center;
     justify-content: center;
+    background-position: left calc(50% - var(--parallax-offset, 0px)) bottom 0%;
   }
   .story {
     position: relative;

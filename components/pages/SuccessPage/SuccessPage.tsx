@@ -26,11 +26,16 @@ export function SuccessPage() {
     let frameId: number | null = null;
     const sections = document.querySelectorAll('section');
     const carCard = document.querySelector('#car') as HTMLElement;
-    console.log(carCard);
 
     const handleScroll = () => {
       if (frameId !== null) {
         return;
+      }
+
+      if (window.scrollY >= 100 && document.documentElement.style.backgroundColor !== 'var(--night)') {
+        document.documentElement.style.backgroundColor = 'var(--night)';
+      } else if (window.scrollY < 100 && document.documentElement.style.backgroundColor !== 'var(--paper)') {
+        document.documentElement.style.backgroundColor = 'var(--paper)';
       }
 
       sections.forEach((section) => {
