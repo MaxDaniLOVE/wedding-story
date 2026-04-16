@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useState } from 'react';
+import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './MobileHeader.module.scss'
 import SidebarLogo from '../../public/sidebar-logo.svg'
 import Image from 'next/image';
@@ -18,7 +18,7 @@ export const blockBodyScroll = (isBlock: boolean) => {
 
 const AnimatedIcon = ({ isOpen }: { isOpen: boolean }) => {
   return (
-    <div className={`${styles.animatedBurger} ${isOpen ? styles.open : ''} `}>
+    <div className={`${styles.animatedBurger} ${isOpen ? styles.open : ''} `} id='close-icon'>
       <span></span>
       <span></span>
       <span></span>
@@ -46,12 +46,30 @@ export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
     window.scrollTo({ top: container.offsetTop, behavior: 'smooth' })
   }, [])
 
+  const sidebarRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLDivElement
+      if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node) && target?.id !== 'close-icon') {
+        setIsOpenSidebar(false)
+        blockBodyScroll(false)
+      }
+    }
+
+    setTimeout(() => {
+      document.addEventListener('mousedown', handleClickOutside)
+    }, 64)
+
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [sidebarRef])
+
   return (
     <>
       <button className={`${styles.iconWrapper} ${isOpenSidebar ? styles.open : ''}`} onClick={toggle}>
         <AnimatedIcon isOpen={isOpenSidebar} />
       </button>
-      <aside className={`${styles.sidebarContainer} ${isOpenSidebar ? styles.open : ''}`}>
+      <aside className={`${styles.sidebarContainer} ${isOpenSidebar ? styles.open : ''}`} ref={sidebarRef}>
           <div className={styles.linksWrapper}>
             <Image src={SidebarLogo.src} alt='logo' width={SidebarLogo.width} height={SidebarLogo.height}/>
             {LINKS.map(({ id, label }) => (
