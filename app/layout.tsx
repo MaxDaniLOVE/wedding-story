@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Meddon, Source_Serif_4 } from "next/font/google";
+import { Source_Serif_4 } from "next/font/google";
 import "./globals.scss";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
@@ -8,12 +8,6 @@ const ogImagePath = `${basePath.replace(/\/$/, "")}/og-image.jpg`;
 const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif-4",
   subsets: ["latin", "cyrillic"],
-});
-
-const meddon = Meddon({
-  variable: "--font-meddon",
-  subsets: ["latin"],
-  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -36,9 +30,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${sourceSerif4.variable} ${meddon.variable}`}>
+    <html lang="ru" className={`${sourceSerif4.variable}`}>
       <body>{children}</body>
     </html>
   );
 }
-// export const dynamic = 'force-dynamic';
