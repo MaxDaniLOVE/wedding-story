@@ -160,6 +160,7 @@
     /* Corrects inability to style clickable `input` types in iOS */
     -webkit-appearance: none;
     transition: .3s ease all;
+    cursor: pointer;
   }
 }
 @media (max-width: 1023px) {

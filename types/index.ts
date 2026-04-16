@@ -5,6 +5,7 @@ export interface User {
   question: string
   answer: string[]
   welcome: string
+  isMany?: boolean
 }
 
 export type SectionIds = typeof LINK_IDS[keyof typeof LINK_IDS];

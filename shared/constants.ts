@@ -35,11 +35,12 @@ export const INVITED_FRIENDS_INFO = {
     question: "Как называется озеро, куда мы ездили летом кататься на сапах?",
     answer: ["Ключик"],
     welcome: "Дорогие Леша и Аня",
+    isMany: true,
   },
   elina: {
     name: "Элина",
     question: "В каком городе Вова и Алина впервые встретились?",
-    answer: ["Стамбул"],
+    answer: ["Стамбул", "Istanbul"],
     welcome: "Дорогая Элина",
   },
   diana: {
@@ -52,27 +53,29 @@ export const INVITED_FRIENDS_INFO = {
     name: "Александр",
     question:
       "Кем является человек к которому мы ездили на юг Турции? Подсказка: есть еще такой певец.",
-    answer: ["Шаман"],
+    answer: ["Шаман", "Shaman"],
     welcome: "Дорогой Александр",
   },
   aleksey: {
     name: "Алексей",
     question:
       "Как называется компания, где мы вместе проходили обучение и жили в хостеле?",
-    answer: ["Яндекс"],
+    answer: ["Яндекс", "yandex"],
     welcome: "Дорогой Алексей",
   },
   bulatielina: {
     name: "Булат и Элина",
     question: "Что соединяют мишки Swarovski, которые вы нам подарили?",
-    answer: ["Сердце"],
+    answer: ["Сердце", "heart"],
     welcome: "Дорогие Булат и Элина",
+    isMany: true,
   },
   sashaikatya: {
     name: "Саша и Катя",
     question: "В каком европейском городе мы вместе жили в отеле?",
-    answer: ["Афины"],
+    answer: ["Афины", "Minsk"],
     welcome: "Дорогие Саша и Катя",
+    isMany: true,
   },
 };
 

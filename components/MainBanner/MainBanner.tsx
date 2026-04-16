@@ -108,7 +108,7 @@ export const MainBanner = ({
       >
         <div className={`${styles.heroContent} ${styles.container}`}>
           <Logo />
-          <p className={styles.subtitle}>{invitedFriendInfo?.welcome}, приглашаем <br/> тебя на нашу свадьбу!</p>
+          <p className={styles.subtitle}>{invitedFriendInfo?.welcome}, приглашаем <br/> {invitedFriendInfo?.isMany ? 'вас' : 'тебя'} на нашу свадьбу!</p>
           <div className={styles.dateWrapper}>
             <p className={styles.date}>22 Мая 2026</p>
             <p className={styles.country}>Грузия</p>
