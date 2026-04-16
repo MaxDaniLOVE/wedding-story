@@ -104,6 +104,10 @@
   p {
     padding: 0 20px;
     align-self: flex-start;
+    opacity: 0;
+    &.errorLabel {
+      opacity: 1;
+    }
   }
 }
 .inputWrapper {
