@@ -1,8 +1,8 @@
 'use client'
 
 import Image from "next/image";
-import imgTravel from "../../../public/travel.png";
-import imgVenue from "../../../public/venue.png";
+import imgTravel from "../../../public/travel.jpg";
+import imgVenue from "../../../public/venue.jpg";
 import styles from "./SuccessPage.module.scss";
 import { MainBanner } from "@/components/MainBanner";
 import { DressCode } from "@/components/DressCode";

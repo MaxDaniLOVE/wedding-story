@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import styles from './DressCode.module.scss'
-import ImgDressCode from "../../public/dress-code.png";
+import ImgDressCode from "../../public/dress-code.jpg";
 import { LINK_IDS } from '@/shared/constants';
 import { SectionIds } from '@/types';
 

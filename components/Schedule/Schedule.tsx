@@ -1,5 +1,5 @@
 import styles from './Schedule.module.scss'
-import ImgSchedule from "../../public/schedule-bg.png";
+import ImgSchedule from "../../public/schedule-bg.jpg";
 import { LINK_IDS, PARALLAX_SPEED } from '@/shared/constants';
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 

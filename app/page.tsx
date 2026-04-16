@@ -1,7 +1,7 @@
 
 import Image from "next/image";
 import styles from "./page.module.scss";
-import Banner from '../public/banner.png'
+import Banner from '../public/banner.jpg'
 
 // const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 // const withBasePath = (path: string) => `${basePath}${path}`;

@@ -2,7 +2,7 @@
 
 import styles from "./FormPage.module.scss";
 import {  ChangeEvent, FormEvent, useCallback, useState, type CSSProperties } from "react";
-import MainBannerBg from '../../../public/main-banner.png'
+import MainBannerBg from '../../../public/main-banner.jpg'
 import { LINK_IDS } from "@/shared/constants";
 import { useInvitedUser } from "@/shared/hooks";
 import { NamesSvg, WeddingSvg } from "@/components/MainBanner/MainBanner";

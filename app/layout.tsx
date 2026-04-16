@@ -3,7 +3,7 @@ import { Meddon, Source_Serif_4 } from "next/font/google";
 import "./globals.scss";
 
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
-const ogImagePath = `${basePath.replace(/\/$/, "")}/og-image.png`;
+const ogImagePath = `${basePath.replace(/\/$/, "")}/og-image.jpg`;
 
 const sourceSerif4 = Source_Serif_4({
   variable: "--font-source-serif-4",

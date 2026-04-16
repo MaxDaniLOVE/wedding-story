@@ -4,7 +4,7 @@ import styles from "./MainBanner.module.scss";
 import { SyntheticEvent, useCallback, type CSSProperties } from "react";
 import Headerlogo from '../../public/header-logo.svg'
 import Image from "next/image";
-import MainBannerBg from '../../public/main-banner.png'
+import MainBannerBg from '../../public/main-banner.jpg'
 import { SectionIds, User } from "@/types";
 import Link from "next/link";
 import { LINK_IDS, LINKS, PARALLAX_SPEED } from "@/shared/constants";

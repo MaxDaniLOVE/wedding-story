@@ -1,6 +1,6 @@
 'use client'
 import styles from './Apartments.module.scss'
-import ApartmentsBg from '../../public/apartment-bg.png'
+import ApartmentsBg from '../../public/apartment-bg.jpg'
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { LINK_IDS, PARALLAX_SPEED } from '@/shared/constants';
 
