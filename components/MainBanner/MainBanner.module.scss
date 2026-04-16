@@ -6,6 +6,7 @@
 
 .section {
   min-height: calc(100vh);
+  background-color: var(--paper);
   // background-image: url("/main-banner.png");
   background-repeat: no-repeat;
   background-size: 110%;
@@ -277,6 +278,7 @@
     justify-content: center;
     overflow: hidden;
     position: relative;
+    margin-top: -57px;
   }
   .date {
     font-size: 44px;

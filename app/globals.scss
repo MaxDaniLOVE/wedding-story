@@ -24,10 +24,11 @@ html,
 body {
   margin: 0;
   padding: 0;
+  background: var(--night);
 }
 
 body {
-  background: var(--paper);
+  background: var(--night);
   color: var(--ink);
   font-family: var(--font-source-serif-4), serif;
 }

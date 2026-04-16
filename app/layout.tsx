@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Meddon, Source_Serif_4 } from "next/font/google";
 import "./globals.scss";
 
@@ -25,6 +25,10 @@ export const metadata: Metadata = {
     images: [ogImagePath],
   },
 };
+
+export const viewport: Viewport = {
+  themeColor: '#100d1b'
+}
 
 export default function RootLayout({
   children,
