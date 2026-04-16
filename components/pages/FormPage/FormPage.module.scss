@@ -169,6 +169,7 @@
     align-items: center;
     justify-content: center;
     background-position: left calc(50% - var(--parallax-offset, 0px)) bottom 0%;
+    background-size: cover;
   }
   .story {
     position: relative;

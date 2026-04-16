@@ -8,6 +8,7 @@
   padding-top: 111px;
   display: flex;
   justify-content: center;
+  background-color: var(--paper);
   div {
     h2 {
       opacity: 0.5;
@@ -15,10 +16,14 @@
     max-width: 1040px;
   }
 }
+@media (max-width: 1350px) {
+  .container {
+    background-position: calc(10% - var(--parallax-offset, 0px)) bottom;
+    background-size: cover;
+  }
+}
 @media (max-width: 1023px) {
   .container {
     padding: 53px 32px 0 32px;
-    background-size: cover;
-    background-position: calc(10% - var(--parallax-offset, 0px)) bottom;
   }
 }

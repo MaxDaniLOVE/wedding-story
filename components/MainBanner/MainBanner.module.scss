@@ -264,7 +264,24 @@
     font-weight: 400;
   }
 }
-
+@media (max-width: 1440px) {
+  .linksWrapper {
+    justify-content: flex-start;
+  }
+  .dateHeader {
+    margin: 0 24px;
+  }
+}
+@media (max-width: 1350px) {
+  .linksWrapper {
+    a {
+      font-size: 16px;
+    }
+  }
+  .topNav {
+    padding: 0 16px;
+  }
+}
 @media (max-width: 1023px) {
   .topNav {
     display: none;
@@ -284,6 +301,7 @@
     overflow: hidden;
     position: relative;
     margin-top: -57px;
+    background-size: cover;
     background-position: left calc(50% - var(--parallax-offset, 0px)) bottom 0%;
   }
   .date {

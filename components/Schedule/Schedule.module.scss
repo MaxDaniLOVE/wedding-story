@@ -36,11 +36,15 @@
 .section {
   position: relative;
 }
+@media (max-width: 1350px) {
+  .schedule {
+    background-size: cover;
+  }
+}
 @media (max-width: 1023px) {
   .schedule {
     padding: 0 58px;
     justify-content: flex-start;
-    background-size: cover;
     background-position: calc(10% - var(--parallax-offset, 0px)) bottom;
   }
   .scheduleContent {
