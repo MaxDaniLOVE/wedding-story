@@ -29,20 +29,22 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  rewrites: async () => {
-    return Object.keys(INVITED_FRIENDS_INFO).map((key => {
-      return [
+  redirects: async () => {
+    return Object.keys(INVITED_FRIENDS_INFO)
+      .map((key) => [
         {
-        source: `/${key}/`,
-        destination: `/${key}`,
+          source: `/${key}/`,
+          destination: `/${key}`,
+          permanent: true,
         },
         {
           source: `/${key}/success/`,
           destination: `/${key}/success`,
-        }
-      ]
-    })).flat()
-  }
+          permanent: true,
+        },
+      ])
+      .flat();
+  },
 };
 
 export default nextConfig;
