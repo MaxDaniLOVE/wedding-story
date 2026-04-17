@@ -24,7 +24,6 @@ const basePath = toBasePath(rawBasePath);
 const nextConfig: NextConfig = {
   reactStrictMode: false,
   output: "export",
-  trailingSlash: false,
   basePath,
   images: {
     unoptimized: true,
