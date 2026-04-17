@@ -27,6 +27,7 @@ const nextConfig: NextConfig = {
   output: "export",
   // GitHub Pages resolves `/slug/` to `slug/index.html`. Without this, only
   // `slug.html` exists and trailing-slash URLs 404.
+  trailingSlash: true,
   basePath,
   images: {
     unoptimized: true,
