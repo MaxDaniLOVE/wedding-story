@@ -27,26 +27,9 @@ const nextConfig: NextConfig = {
   output: "export",
   // GitHub Pages resolves `/slug/` to `slug/index.html`. Without this, only
   // `slug.html` exists and trailing-slash URLs 404.
-  trailingSlash: true,
   basePath,
   images: {
     unoptimized: true,
-  },
-  redirects: async () => {
-    return Object.keys(INVITED_FRIENDS_INFO)
-      .map((key) => [
-        {
-          source: `/${key}/`,
-          destination: `/${key}`,
-          permanent: true,
-        },
-        {
-          source: `/${key}/success/`,
-          destination: `/${key}/success`,
-          permanent: true,
-        },
-      ])
-      .flat();
   },
 };
 
