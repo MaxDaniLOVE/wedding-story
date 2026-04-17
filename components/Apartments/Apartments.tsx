@@ -1,31 +1,19 @@
 'use client'
 import styles from './Apartments.module.scss'
 import ApartmentsBg from '../../public/apartment-bg.jpg'
-import { CSSProperties, useEffect, useRef, useState } from 'react';
-import { LINK_IDS, PARALLAX_SPEED } from '@/shared/constants';
+import type { CSSProperties } from 'react';
+import { LINK_IDS } from '@/shared/constants';
 
 
-export const Apartments = ({ scrollPosition }: { scrollPosition: number }) => {
-  const [parallaxOffset, setParallaxOffset] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const containerYPosition = (window.scrollY + (containerRef.current?.getBoundingClientRect()?.y || 3000));
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setParallaxOffset(containerYPosition);
-  }, []);
-
+export const Apartments = () => {
   return (
-    <section
-      className={styles.container}
-      style={{
-        backgroundImage: `url(${ApartmentsBg.src})`,
-        "--parallax-offset": `${(scrollPosition - parallaxOffset) * PARALLAX_SPEED}px`,
-      } as CSSProperties}
-      ref={containerRef}
-      id={LINK_IDS.APARTMENTS}
-    >
-        <div>
+    <section className={styles.container} id={LINK_IDS.APARTMENTS}>
+        <div
+          className={styles.parallaxBg}
+          style={{ backgroundImage: `url(${ApartmentsBg.src})` } as CSSProperties}
+          aria-hidden
+        />
+        <div className={styles.content}>
           <h2>Где жить</h2>
           <p>
             С 22 по 23 мая для вас будет забронирован номер в отеле Nekresi Estate,

@@ -7,15 +7,29 @@
 .section {
   min-height: calc(100vh);
   background-color: var(--paper);
-  background-repeat: no-repeat;
-  background-size: 110%;
-  background-position: 0;
-  background-position: left calc(50% - var(--parallax-offset, 0px)) bottom 10%;
+  position: relative;
+  overflow: hidden;
   padding-top: 60px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0s ease;
+}
+
+.parallaxBg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -12%;
+  width: 124%;
+  z-index: 0;
+  pointer-events: none;
+  background-color: var(--paper);
+  background-repeat: no-repeat;
+  background-size: 86%;
+  background-position: center bottom 10%;
+  will-change: transform;
+  transform: translate3d(calc(-1 * var(--parallax-offset, 0px)), 0, 0);
+  backface-visibility: hidden;
 }
 
 .story {
@@ -298,11 +312,13 @@
     padding-top: 0;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
-    position: relative;
     margin-top: -57px;
+  }
+
+  .parallaxBg {
     background-size: cover;
-    background-position: left calc(50% - var(--parallax-offset, 0px)) bottom 0%;
+    background-position: center bottom;
+    left: 0;
   }
   .date {
     font-size: 44px;

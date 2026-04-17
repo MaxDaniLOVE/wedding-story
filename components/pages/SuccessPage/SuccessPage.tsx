@@ -10,7 +10,7 @@ import { Schedule } from "@/components/Schedule/Schedule";
 import FooterLogo from '../../../public/footer-logo.svg'
 import { Apartments } from "@/components/Apartments";
 import { useInvitedUser } from "@/shared/hooks";
-import { LINK_IDS } from "@/shared/constants";
+import { LINK_IDS, PARALLAX_SPEED } from "@/shared/constants";
 import { MobileHeader } from "@/components/MobileHeader";
 import { useEffect, useState } from "react";
 import { SectionIds } from "@/types";
@@ -18,52 +18,135 @@ import { SectionIds } from "@/types";
 export function SuccessPage() {
   const invitedFriendInfo = useInvitedUser()
 
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [showTopNav, setShowTopNav] = useState(false);
   const [activeBlock, setActiveBlock] = useState<SectionIds>('invite')
   const [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
   useEffect(() => {
-    let frameId: number | null = null;
-    const sections = document.querySelectorAll('section');
-
-    const handleScroll = () => {
-      if (frameId !== null) {
-        return;
-      }
-
-      if (window.scrollY >= 100 && document.documentElement.style.backgroundColor !== 'var(--night)') {
-        document.documentElement.style.backgroundColor = 'var(--night)';
-      } else if (window.scrollY < 100 && document.documentElement.style.backgroundColor !== 'var(--paper)') {
-        document.documentElement.style.backgroundColor = 'var(--paper)';
-      }
-
-      sections.forEach((section) => {
-        const sectionTop = section.offsetTop;
-        if (window.scrollY >= sectionTop - 92) { // 92px for header
-          setActiveBlock(section.getAttribute('id') as SectionIds)
-        }
-      })
-
-      frameId = window.requestAnimationFrame(() => {
-        setScrollPosition(window.scrollY);
-        frameId = null;
-      });
-    };
-
     if (isOpenSidebar) {
       return;
     }
 
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    const headerOffset = 92;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const sectionNodes = document.querySelectorAll<HTMLElement>("section[id]");
+    const readSectionTops = () =>
+      [...sectionNodes].map((section) => ({
+        id: section.getAttribute("id") as SectionIds,
+        top: section.offsetTop,
+      }));
+
+    let sectionTops = readSectionTops();
+
+    let apartmentsParallaxBase = 0;
+    let scheduleParallaxBase = 0;
+
+    const measureParallaxBases = () => {
+      const apartments = document.getElementById(LINK_IDS.APARTMENTS);
+      const schedule = document.getElementById(LINK_IDS.SCHEDULE);
+      if (apartments) {
+        apartmentsParallaxBase =
+          window.scrollY + apartments.getBoundingClientRect().top;
+      }
+      if (schedule) {
+        scheduleParallaxBase =
+          window.scrollY + schedule.getBoundingClientRect().top;
+      }
+    };
+
+    const invite = () => document.getElementById(LINK_IDS.INVITE);
+
+    let rafId = 0;
+    let scrollQueued = false;
+    let lastShowTopNav = false;
+    let lastActive: SectionIds | null = null;
+
+    const applyFrame = () => {
+      const y = window.scrollY;
+
+      if (y >= 100) {
+        if (document.documentElement.style.backgroundColor !== "var(--night)") {
+          document.documentElement.style.backgroundColor = "var(--night)";
+        }
+      } else if (document.documentElement.style.backgroundColor !== "var(--paper)") {
+        document.documentElement.style.backgroundColor = "var(--paper)";
+      }
+
+      if (!reduceMotion) {
+        const inv = invite();
+        if (inv) {
+          inv.style.setProperty("--parallax-offset", `${y * PARALLAX_SPEED}px`);
+        }
+        const ap = document.getElementById(LINK_IDS.APARTMENTS);
+        if (ap) {
+          ap.style.setProperty(
+            "--parallax-offset",
+            `${(y - apartmentsParallaxBase) * PARALLAX_SPEED}px`,
+          );
+        }
+        const sch = document.getElementById(LINK_IDS.SCHEDULE);
+        if (sch) {
+          sch.style.setProperty(
+            "--parallax-offset",
+            `${(y - scheduleParallaxBase) * PARALLAX_SPEED}px`,
+          );
+        }
+      }
+
+      const showNav = y >= headerOffset;
+      if (showNav !== lastShowTopNav) {
+        lastShowTopNav = showNav;
+        setShowTopNav(showNav);
+      }
+
+      let nextActive: SectionIds = sectionTops[0]?.id ?? LINK_IDS.INVITE;
+      for (const { id, top } of sectionTops) {
+        if (y >= top - headerOffset) {
+          nextActive = id;
+        }
+      }
+      if (nextActive !== lastActive) {
+        lastActive = nextActive;
+        setActiveBlock(nextActive);
+      }
+    };
+
+    const flush = () => {
+      scrollQueued = false;
+      rafId = 0;
+      applyFrame();
+    };
+
+    const onScroll = () => {
+      if (scrollQueued) {
+        return;
+      }
+      scrollQueued = true;
+      rafId = window.requestAnimationFrame(flush);
+    };
+
+    const onResize = () => {
+      measureParallaxBases();
+      sectionTops = readSectionTops();
+      if (!scrollQueued) {
+        scrollQueued = true;
+        rafId = window.requestAnimationFrame(flush);
+      }
+    };
+
+    measureParallaxBases();
+    applyFrame();
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onResize, { passive: true });
 
     return () => {
-      console.log('remove');
-
-      if (frameId !== null) {
-        window.cancelAnimationFrame(frameId);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
       }
-      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
     };
   }, [isOpenSidebar]);
 
@@ -72,7 +155,7 @@ export function SuccessPage() {
 
       <MobileHeader activeBlock={activeBlock} setIsOpenSidebar={setIsOpenSidebar} isOpenSidebar={isOpenSidebar} />
       <main className={styles.story}>
-        <MainBanner activeBlock={activeBlock} invitedFriendInfo={invitedFriendInfo} scrollPosition={scrollPosition} />
+        <MainBanner activeBlock={activeBlock} invitedFriendInfo={invitedFriendInfo} showTopNav={showTopNav} />
         <section className={`${styles.section} ${styles.sectionVenue}`} id={LINK_IDS.PLACE}>
           <div className={styles.split}>
             <article className={`${styles.container} ${styles.panelGreen}`}>
@@ -104,9 +187,9 @@ export function SuccessPage() {
           </div>
         </div>
 
-        <Apartments scrollPosition={scrollPosition} />
+        <Apartments />
         <DressCode />
-        <Schedule scrollPosition={scrollPosition} />
+        <Schedule />
 
         <section className={`${styles.section} ${styles.gifts}`} id={LINK_IDS.GIFTS}>
           <h2>Что дарить</h2>

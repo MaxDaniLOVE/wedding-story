@@ -1,15 +1,15 @@
 .container {
+  position: relative;
+  overflow: hidden;
   min-height: 100vh;
   width: 100%;
-  background-size: 110%;
-  background-repeat: no-repeat;
-  background-position: 0;
-  background-position: calc(50% - var(--parallax-offset, 0px)) bottom;
   padding-top: 111px;
   display: flex;
   justify-content: center;
   background-color: var(--paper);
-  div {
+  .content {
+    position: relative;
+    z-index: 1;
     h2 {
       opacity: 0.5;
     }
@@ -19,13 +19,33 @@
     max-width: 820px;
   }
 }
+
+.parallaxBg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -12%;
+  width: 124%;
+  z-index: 0;
+  pointer-events: none;
+  background-repeat: no-repeat;
+  background-size: 86%;
+  background-position: center bottom;
+  will-change: transform;
+  transform: translate3d(calc(-1 * var(--parallax-offset, 0px)), 0, 0);
+  backface-visibility: hidden;
+}
+
 @media (max-width: 1350px) {
-  .container {
-    background-position: calc(10% - var(--parallax-offset, 0px)) bottom;
+  .parallaxBg {
     background-size: cover;
   }
 }
 @media (max-width: 1023px) {
+  .parallaxBg {
+    background-position: left bottom;
+    width: 300%;
+  }
   .container {
     padding: 53px 32px 0 32px;
   }

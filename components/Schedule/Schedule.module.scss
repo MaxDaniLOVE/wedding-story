@@ -1,5 +1,7 @@
 .schedule {
-  background: var(--night);
+  position: relative;
+  overflow: hidden;
+  background-color: var(--night);
   color: #fbfdfb;
   padding: 0 62px;
   height: 100vh;
@@ -9,13 +11,27 @@
   align-items: flex-end;
   justify-content: center;
   flex-direction: column;
+}
+
+.parallaxBg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -12%;
+  width: 124%;
+  z-index: 0;
+  pointer-events: none;
   background-repeat: no-repeat;
-  background-size: 110%;
-  background-position: 0;
-  background-position: calc(50% - var(--parallax-offset, 0px)) bottom;
+  background-size: 86%;
+  background-position: center bottom;
+  will-change: transform;
+  transform: translate3d(calc(-1 * var(--parallax-offset, 0px)), 0, 0);
+  backface-visibility: hidden;
 }
 
 .scheduleContent {
+  position: relative;
+  z-index: 1;
   max-width: 640px;
   padding-right: 150px;
   h2 {
@@ -38,7 +54,7 @@
   position: relative;
 }
 @media (max-width: 1350px) {
-  .schedule {
+  .parallaxBg {
     background-size: cover;
   }
 }
@@ -46,7 +62,10 @@
   .schedule {
     padding: 0 58px;
     justify-content: flex-start;
-    background-position: calc(10% - var(--parallax-offset, 0px)) bottom;
+  }
+  .parallaxBg {
+    background-position: left bottom;
+    width: 300%;
   }
   .scheduleContent {
     padding: 98px 0 0 0;

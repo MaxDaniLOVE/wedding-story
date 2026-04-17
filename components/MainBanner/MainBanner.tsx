@@ -7,7 +7,7 @@ import Image from "next/image";
 import MainBannerBg from '../../public/main-banner.jpg'
 import { SectionIds, User } from "@/types";
 import Link from "next/link";
-import { LINK_IDS, LINKS, PARALLAX_SPEED } from "@/shared/constants";
+import { LINK_IDS, LINKS } from "@/shared/constants";
 import { Logo } from "../pages/FormPage/FormPage";
 
 export const WeddingSvg = () => {
@@ -76,8 +76,8 @@ export const NamesSvg = () => {
 
 
 export const MainBanner = ({
-  invitedFriendInfo, scrollPosition, activeBlock
-}: { invitedFriendInfo: User; scrollPosition: number; activeBlock: SectionIds }) => {
+  invitedFriendInfo, showTopNav, activeBlock
+}: { invitedFriendInfo: User; showTopNav: boolean; activeBlock: SectionIds }) => {
   const onClickLink = useCallback((e:  SyntheticEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault()
     const container = document.querySelector(`#${id}`) as HTMLDivElement
@@ -87,7 +87,7 @@ export const MainBanner = ({
 
   return (
     <>
-      <div className={styles.topNav} style={scrollPosition >= 92 ? { opacity: 1 }: { opacity: 0 }}>
+      <div className={styles.topNav} style={showTopNav ? { opacity: 1 } : { opacity: 0 }}>
         <div className={`${styles.container} ${styles.navRow}`}>
           <Image src={Headerlogo} alt='header-logo' />
           <span className={styles.dateHeader}>
@@ -101,11 +101,12 @@ export const MainBanner = ({
           </div>
         </div>
       </div>
-      <section
-        className={`${styles.section}`}
-        style={{ "--parallax-offset": `${scrollPosition * PARALLAX_SPEED}px`, backgroundImage: `url(${MainBannerBg.src})` } as CSSProperties}
-        id={LINK_IDS.INVITE}
-      >
+      <section className={styles.section} id={LINK_IDS.INVITE}>
+        <div
+          className={styles.parallaxBg}
+          style={{ backgroundImage: `url(${MainBannerBg.src})` } as CSSProperties}
+          aria-hidden
+        />
         <div className={`${styles.heroContent} ${styles.container}`}>
           <Logo />
           <p className={styles.subtitle}>{invitedFriendInfo?.welcome}, приглашаем <br/> {invitedFriendInfo?.isMany ? 'вас' : 'тебя'} на нашу свадьбу!</p>
