@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { INVITED_FRIENDS_INFO } from "./shared/constants";
 
 const rawBasePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
@@ -28,6 +29,20 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
+  rewrites: async () => {
+    return Object.keys(INVITED_FRIENDS_INFO).map((key => {
+      return [
+        {
+        source: `/${key}/`,
+        destination: `/${key}`,
+        },
+        {
+          source: `/${key}/success/`,
+          destination: `/${key}/success`,
+        }
+      ]
+    })).flat()
+  }
 };
 
 export default nextConfig;
