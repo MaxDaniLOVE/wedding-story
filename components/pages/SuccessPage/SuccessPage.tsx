@@ -20,12 +20,11 @@ export function SuccessPage() {
 
   const [scrollPosition, setScrollPosition] = useState(0);
   const [activeBlock, setActiveBlock] = useState<SectionIds>('invite')
-  const [isCarBlockActive, setIsCarBlockActive] = useState(false);
+  const [isOpenSidebar, setIsOpenSidebar] = useState(false)
 
   useEffect(() => {
     let frameId: number | null = null;
     const sections = document.querySelectorAll('section');
-    const carCard = document.querySelector('#car') as HTMLElement;
 
     const handleScroll = () => {
       if (frameId !== null) {
@@ -45,33 +44,33 @@ export function SuccessPage() {
         }
       })
 
-      if (carCard && (window.scrollY >= (carCard.offsetTop - 92) && (window.scrollY <= (carCard.offsetTop - 92 + carCard.clientHeight)))) {  // 92px for header
-        setIsCarBlockActive(true);
-      } else {
-        setIsCarBlockActive(false)
-      }
-
       frameId = window.requestAnimationFrame(() => {
         setScrollPosition(window.scrollY);
         frameId = null;
       });
     };
 
+    if (isOpenSidebar) {
+      return;
+    }
+
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
+      console.log('remove');
+
       if (frameId !== null) {
         window.cancelAnimationFrame(frameId);
       }
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [isOpenSidebar]);
 
   return (
     <>
 
-      <MobileHeader activeBlock={activeBlock} />
+      <MobileHeader activeBlock={activeBlock} setIsOpenSidebar={setIsOpenSidebar} isOpenSidebar={isOpenSidebar} />
       <main className={styles.story}>
         <MainBanner activeBlock={activeBlock} invitedFriendInfo={invitedFriendInfo} scrollPosition={scrollPosition} />
         <section className={`${styles.section} ${styles.sectionVenue}`} id={LINK_IDS.PLACE}>
@@ -79,11 +78,11 @@ export function SuccessPage() {
             <article className={`${styles.container} ${styles.panelGreen}`}>
               <h2>Место проведения</h2>
               <p>
-                Свадьба пройдет в аутентичном отеле Nekresi Estate среди виноградников, в горах на
-                юге Грузии, примерно в 2,5-3 часах езды от Тбилиси.
+                Свадьба пройдет в аутентичном отеле Nekresi Estate среди виноградников,
+                в живописных горах Грузии, примерно в 2,5–3 часах езды от Тбилиси.
               </p>
             </article>
-            <div className={`${styles.blockImageWrapper} ${activeBlock === LINK_IDS.PLACE ? styles.activeImageWrapper : ''}`}>
+            <div className={`${styles.blockImageWrapper}`}>
               <Image className={styles.splitImage} src={imgVenue} alt="Nekresi Estate" fill objectFit="cover" />
             </div>
           </div>
@@ -93,20 +92,20 @@ export function SuccessPage() {
           <div className={`${styles.container} ${styles.travelInfo}`}>
             <h2>Как добраться</h2>
             <p>
-              Вы можете прилететь в Тбилиси заранее, а 22 мая в 15:00 мы будем рады видеть вас на
-              нашей свадьбе. Мы организовали трансфер из Тбилиси, чтобы вам было удобно добраться.
-              Если вы планируете поехать самостоятельно, точный адрес: <a target="_blank" referrerPolicy="no-referrer" href="https://maps.app.goo.gl/25va8vZgNW16gGSS6">Nekresi,&nbsp;Kvareli&nbsp;4816,&nbsp;Georgia.</a>
+              Вы можете прилететь в Тбилиси заранее, а 22 мая с 14:00 мы будем рады видеть вас на нашей свадьбе.
+              Мы организовали трансфер из Тбилиси, чтобы вам было удобно добраться. Если вы планируете поехать самостоятельно,
+              точный адрес: <a target="_blank" referrerPolicy="no-referrer" href="https://maps.app.goo.gl/25va8vZgNW16gGSS6">Nekresi,&nbsp;Kvareli&nbsp;4816,&nbsp;Georgia.</a>
             </p>
           </div>
         </section>
         <div className={styles.travelImageWrap}>
-          <div id='car' className={`${styles.carImageWrapper} ${isCarBlockActive ? styles.activeImageWrapper : ''}`}>
+          <div id='car' className={`${styles.carImageWrapper}`}>
             <Image src={imgTravel} alt="Дорога к месту проведения" fill />
           </div>
         </div>
 
         <Apartments scrollPosition={scrollPosition} />
-        <DressCode activeBlock={activeBlock}  />
+        <DressCode />
         <Schedule scrollPosition={scrollPosition} />
 
         <section className={`${styles.section} ${styles.gifts}`} id={LINK_IDS.GIFTS}>

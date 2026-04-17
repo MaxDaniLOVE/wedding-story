@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
+import { Dispatch, SetStateAction, SyntheticEvent, useCallback, useEffect, useRef, useState } from 'react';
 import styles from './MobileHeader.module.scss'
 import SidebarLogo from '../../public/sidebar-logo.svg'
 import Image from 'next/image';
@@ -37,8 +37,15 @@ const AnimatedIcon = ({ isOpen }: { isOpen: boolean }) => {
 }
 
 
-export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
-  const [isOpenSidebar, setIsOpenSidebar] = useState(false)
+export const MobileHeader = ({
+  activeBlock,
+  setIsOpenSidebar,
+  isOpenSidebar
+}: {
+  activeBlock: SectionIds,
+  setIsOpenSidebar: Dispatch<SetStateAction<boolean>>;
+  isOpenSidebar: boolean
+}) => {
   const toggle = () => {
     setIsOpenSidebar((isOpen) => {
       blockBodyScroll(!isOpen)
@@ -53,7 +60,7 @@ export const MobileHeader = ({ activeBlock }: { activeBlock: SectionIds }) => {
     const container = document.querySelector(`#${id}`) as HTMLDivElement
     if (!container) return
     window.scrollTo({ top: container.offsetTop, behavior: 'smooth' })
-  }, [])
+  }, [setIsOpenSidebar])
 
   const sidebarRef = useRef<HTMLDivElement>(null)
 

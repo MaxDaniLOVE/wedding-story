@@ -26,12 +26,12 @@ export const Schedule = ({ scrollPosition }: { scrollPosition: number }) => {
     <div className={`${styles.container} ${styles.scheduleContent}`}>
       <h2>Расписание</h2>
       <ul>
-        <li>15:00 - заселение</li>
-        <li>16:30 - фуршет</li>
-        <li>17:00 - регистрация</li>
-        <li>17:30 - продолжение фуршета и свободное время</li>
-        <li>20:00 - ужин</li>
-        <li>22:00 - салют</li>
+        <li>14:00 — Заселение</li>
+        <li>15:30 — Фуршет</li>
+        <li>16:00 - Церемония</li>
+        <li>17:00 — Фуршет и свободное время</li>
+        <li>17:45 — Ужин </li>
+        <li>20:30 — Салют</li>
       </ul>
     </div>
   </section>
