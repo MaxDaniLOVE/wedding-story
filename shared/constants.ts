@@ -77,6 +77,13 @@ export const INVITED_FRIENDS_INFO = {
     welcome: "Дорогие Саша и Катя",
     isMany: true,
   },
+  mishailiana: {
+    name: "Миша и Лиана",
+    question: "Как называется строение с которого мы прыгали в пригороде Санкт-Петербурга?",
+    answer: ["Труба", "Вышка"],
+    welcome: "Дорогие Миша и Лиана",
+    isMany: true,
+  }
 };
 
 export const LINK_IDS = {
