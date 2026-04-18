@@ -17,6 +17,8 @@ export const Logo = () => {
   )
 }
 
+const normalize = (p: string) => p.replace(/\/+/g, '/').replace(/\/$/, '');
+
 export function FormPage() {
   const invitedFriendInfo = useInvitedUser()
   const [value, setValue] = useState('')
@@ -39,7 +41,7 @@ export function FormPage() {
       if (path.endsWith('/')) {
         newPath = path.slice(0, -1)
       }
-      router.push(`${newPath}/success`)
+      router.push(normalize(`${newPath}/success`))
     }
   },[invitedFriendInfo.answer, path, router, value])
 
