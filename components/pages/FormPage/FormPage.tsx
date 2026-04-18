@@ -35,7 +35,11 @@ export function FormPage() {
     if (!answer.includes(result)) {
       setHasError(true)
     } else {
-      router.push(`${path}/success`)
+      let newPath = path;
+      if (path.endsWith('/')) {
+        newPath = path.slice(0, -1)
+      }
+      router.push(`${newPath}/success`)
     }
   },[invitedFriendInfo.answer, path, router, value])
 
