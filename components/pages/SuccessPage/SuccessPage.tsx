@@ -155,7 +155,7 @@ export function SuccessPage() {
 
       <MobileHeader activeBlock={activeBlock} setIsOpenSidebar={setIsOpenSidebar} isOpenSidebar={isOpenSidebar} />
       <main className={styles.story}>
-        <MainBanner activeBlock={activeBlock} invitedFriendInfo={invitedFriendInfo} showTopNav={showTopNav} />
+        <MainBanner activeBlock={activeBlock} invitedFriendInfo={invitedFriendInfo} showTopNav={showTopNav} isShowSidebar={isOpenSidebar}/>
         <section className={`${styles.section} ${styles.sectionVenue}`} id={LINK_IDS.PLACE}>
           <div className={styles.split}>
             <article className={`${styles.container} ${styles.panelGreen}`}>
@@ -187,9 +187,9 @@ export function SuccessPage() {
           </div>
         </div>
 
-        <Apartments />
+        <Apartments isShowSidebar={isOpenSidebar} />
         <DressCode />
-        <Schedule />
+        <Schedule isShowSidebar={isOpenSidebar} />
 
         <section className={`${styles.section} ${styles.gifts}`} id={LINK_IDS.GIFTS}>
           <h2>Что дарить</h2>

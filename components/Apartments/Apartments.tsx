@@ -1,16 +1,21 @@
 'use client'
+
 import styles from './Apartments.module.scss'
 import ApartmentsBg from '../../public/apartment-bg.jpg'
-import type { CSSProperties } from 'react';
 import { LINK_IDS } from '@/shared/constants';
+import { useParallax } from '@/shared/hooks';
+import { motion } from 'motion/react';
 
 
-export const Apartments = () => {
+export const Apartments = ({ isShowSidebar }: { isShowSidebar: boolean }) => {
+  const { parallaxRef, x } = useParallax({ isShowSidebar })
+
   return (
     <section className={styles.container} id={LINK_IDS.APARTMENTS}>
-        <div
+        <motion.div
           className={styles.parallaxBg}
-          style={{ backgroundImage: `url(${ApartmentsBg.src})` } as CSSProperties}
+          ref={parallaxRef}
+          style={{ backgroundImage: `url(${ApartmentsBg.src})`, x } }
           aria-hidden
         />
         <div className={styles.content}>

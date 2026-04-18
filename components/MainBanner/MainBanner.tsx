@@ -1,7 +1,7 @@
 'use client'
 
 import styles from "./MainBanner.module.scss";
-import { SyntheticEvent, useCallback, type CSSProperties } from "react";
+import { SyntheticEvent, useCallback } from "react";
 import Headerlogo from '../../public/header-logo.svg'
 import Image from "next/image";
 import MainBannerBg from '../../public/main-banner.jpg'
@@ -9,6 +9,8 @@ import { SectionIds, User } from "@/types";
 import Link from "next/link";
 import { LINK_IDS, LINKS } from "@/shared/constants";
 import { Logo } from "../pages/FormPage/FormPage";
+import { motion } from "motion/react";
+import { useParallax } from "@/shared/hooks";
 
 export const WeddingSvg = () => {
   return (
@@ -74,16 +76,17 @@ export const NamesSvg = () => {
   )
 }
 
-
 export const MainBanner = ({
-  invitedFriendInfo, showTopNav, activeBlock
-}: { invitedFriendInfo: User; showTopNav: boolean; activeBlock: SectionIds }) => {
+  invitedFriendInfo, showTopNav, activeBlock, isShowSidebar
+}: { invitedFriendInfo: User; showTopNav: boolean; activeBlock: SectionIds, isShowSidebar: boolean }) => {
   const onClickLink = useCallback((e:  SyntheticEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault()
     const container = document.querySelector(`#${id}`) as HTMLDivElement
     if (!container) return
     window.scrollTo({ top: container.offsetTop, behavior: 'smooth' })
   }, [])
+
+  const { parallaxRef, x } = useParallax({ isShowSidebar, offset: ['start start', 'end start']})
 
   return (
     <>
@@ -102,10 +105,11 @@ export const MainBanner = ({
         </div>
       </div>
       <section className={styles.section} id={LINK_IDS.INVITE}>
-        <div
+        <motion.div
           className={styles.parallaxBg}
-          style={{ backgroundImage: `url(${MainBannerBg.src})` } as CSSProperties}
           aria-hidden
+          ref={parallaxRef}
+          style={{ x, backgroundImage: `url(${MainBannerBg.src})` }}
         />
         <div className={`${styles.heroContent} ${styles.container}`}>
           <Logo />
